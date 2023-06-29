@@ -2,7 +2,7 @@
 A ideia é que **organizações** registrem **pets** que estejam disponíveis para adoção, fornecendo também um número de telefone, pelo qual potenciais tutoras possam entrar em contato, via WhatsApp, e acordar a adoção. 
 
 ## Requisitos Funcionais
-
+**Pets**:
 - [ ] Deve ser possível cadastrar um pet;
 - [ ] Deve ser possível listar todos os pets disponíveis para adoção em uma **cidade**;
 - [ ] Deve ser possível filtrar pets por suas características;
@@ -11,17 +11,26 @@ A ideia é que **organizações** registrem **pets** que estejam disponíveis pa
     - Porte do animal (pequeno, médio grande);
     - Nídel de independência (baixa, média, alta)
 - [ ] Deve ser possível visualizar detalhes de um pet para adoção;
+
+**Organizações**:
 - [ ] Deve ser possível se cadastrar como uma Organização;
 - [ ] Deve ser possível realizar login como uma Organização;
 
 ## Regras de Negócio
+**Pets:**
 - [ ] Para listar os pets, é **necessário** informar uma cidade;
-- [ ] Uma Organização **PRECISA** ter endereço e número de WhatsApp;
 - [ ] Um pet **PRECISA** está ligado a uma Organização;
 - [ ] Os filtros de pet são opcionais, com exceção da cidade;
+
+**Organizações**:
+- [ ] Uma Organização **PRECISA** ter endereço e número de WhatsApp;
+- [ ] O número de WhatsApp **PRECISA** ser único;
 - [ ] Para Organização ter permissão de admin, precisa estar logada.
 
 ## Requisitos Não Funcionais
+**Pets:**
 - [ ] Os pets devem ser identificados com ids únicos e universais (UUID);
+
+**Organizações:**
 - [ ] As organizações devem ser identificados com ids únicos e universais (UUID);
 - [ ] As organizações devem ser autenticadas via JWT;
