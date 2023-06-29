@@ -1,0 +1,30 @@
+{
+  "name": "third-challenge",
+  "version": "1.0.0",
+  "description": "A ideia é que **organizações** registrem **pets** que estejam disponíveis para adoção, fornecendo também um número de telefone, pelo qual potenciais tutoras possam entrar em contato, via WhatsApp, e acordar a adoção.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch ./src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodrigo-noschang/find-a-friend-back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rodrigo-noschang/find-a-friend-back/issues"
+  },
+  "homepage": "https://github.com/rodrigo-noschang/find-a-friend-back#readme",
+  "devDependencies": {
+    "@types/node": "^20.3.2",
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "fastify": "^4.18.0",
+    "zod": "^3.21.4"
+  }
+}
