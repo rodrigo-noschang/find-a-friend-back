@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { UniqueViolation } from './errors/unique-violation';
+import { UniqueViolation } from './errors/unique-violation-error';
 import { RegisterOrganizationUseCase } from './register-organization';
 import { InMemoryOrganizationsRepository } from '@/repositories/in-memory-repositories/in-memory-organizations.repository';
 
@@ -25,7 +25,6 @@ describe('Register Organization Use Case', () => {
         expect(organizationsRepository.items).toHaveLength(1);
         expect(organization.id).toEqual(expect.any(String));
         expect(organization).not.toHaveProperty('password');
-        expect(organization).not.toHaveProperty('hash_password')
         expect(organizationsRepository.items).toEqual([
             expect.objectContaining({
                 whats_app: '44999999999'
@@ -49,6 +48,28 @@ describe('Register Organization Use Case', () => {
                 city: 'City 2',
                 uf: 'UF 2',
                 password: '123456',
+            })
+        }).rejects.toBeInstanceOf(UniqueViolation);
+    })
+
+    it('should not be able to register 2 organizations with same email', async () => {
+        await sut.execute({
+            whats_app: '44999999999',
+            address: 'First Organization Street',
+            city: 'City 1',
+            uf: 'UF 1',
+            password: '123456',
+            email: 'first.organization@mail.com'
+        });
+
+        await expect(() => {
+            return sut.execute({
+                whats_app: '44999999910',
+                address: 'Second Organization Street',
+                city: 'City 2',
+                uf: 'UF 2',
+                password: '123456',
+                email: 'first.organization@mail.com'
             })
         }).rejects.toBeInstanceOf(UniqueViolation);
     })

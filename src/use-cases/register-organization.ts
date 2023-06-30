@@ -1,8 +1,8 @@
 import { hash } from 'bcrypt';
 
-import { OrganizationsRepository, DatabaseOrganization } from '@/repositories/organizations-repository';
+import { OrganizationStoredData, OrganizationsRepository } from '@/repositories/organizations-repository';
 
-import { UniqueViolation } from "./errors/unique-violation";
+import { UniqueViolation } from "./errors/unique-violation-error";
 
 interface RegisterOrganizationUseCaseRequest {
     uf: string,
@@ -17,19 +17,27 @@ interface RegisterOrganizationUseCaseRequest {
 }
 
 interface RegisterOrganizationUseCaseResponse {
-    organization: DatabaseOrganization
+    organization: OrganizationStoredData
 }
 
 export class RegisterOrganizationUseCase {
     constructor(private repository: OrganizationsRepository) { }
 
     async execute(newOrganizationData: RegisterOrganizationUseCaseRequest): Promise<RegisterOrganizationUseCaseResponse> {
-        const { whats_app } = newOrganizationData;
+        const { whats_app, email } = newOrganizationData;
 
         const isWhatsAppAlreadyRegistered = await this.repository.findUniqueByWhatsAppNumber(whats_app);
 
         if (isWhatsAppAlreadyRegistered) {
             throw new UniqueViolation('whats_app');
+        }
+
+        if (email) {
+            const isEmailAlreadyRegistered = await this.repository.findUniqueByEmail(email);
+
+            if (isEmailAlreadyRegistered) {
+                throw new UniqueViolation('email');
+            }
         }
 
         const hash_password = await hash(newOrganizationData.password, 6);
@@ -41,7 +49,7 @@ export class RegisterOrganizationUseCase {
         }
 
         const organization = await this.repository.registerOrganization(data);
-
+        console.log('Aquii -> ', organization);
         return { organization };
     }
 }

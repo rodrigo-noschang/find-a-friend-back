@@ -13,7 +13,7 @@ A ideia é que **organizações** registrem **pets** que estejam disponíveis pa
 - [ ] Deve ser possível visualizar detalhes de um pet para adoção;
 
 **Organizações**:
-- [ ] Deve ser possível se cadastrar como uma Organização;
+- [x] Deve ser possível se cadastrar como uma Organização;
 - [ ] Deve ser possível realizar login como uma Organização;
 
 ## Regras de Negócio

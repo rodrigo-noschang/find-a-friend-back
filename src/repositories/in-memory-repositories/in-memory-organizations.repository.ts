@@ -1,9 +1,19 @@
 import { randomUUID } from "node:crypto";
 
-import { OrganizationsRepository, DatabaseOrganization, RequestOrganization } from "../organizations-repository";
+import { OrganizationsRepository, OrganizationCreateInput, OrganizationStoredData } from "../organizations-repository";
 
 export class InMemoryOrganizationsRepository implements OrganizationsRepository {
-    public items: DatabaseOrganization[] = [];
+    public items: OrganizationStoredData[] = [];
+
+    async findUniqueByEmail(email: string) {
+        const isEmailRegistered = this.items.find(item => {
+            return item.email === email;
+        })
+
+        if (!isEmailRegistered) return null;
+
+        return isEmailRegistered
+    }
 
     async findUniqueByWhatsAppNumber(whatsAppNumber: string) {
         const existingWhatsAppNumber = this.items.find(organization => {
@@ -15,7 +25,7 @@ export class InMemoryOrganizationsRepository implements OrganizationsRepository 
         return existingWhatsAppNumber;
     }
 
-    async registerOrganization(data: RequestOrganization) {
+    async registerOrganization(data: OrganizationCreateInput) {
         const newOrganization = {
             id: randomUUID(),
             created_at: new Date(),

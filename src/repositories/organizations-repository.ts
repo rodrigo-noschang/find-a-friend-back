@@ -1,16 +1,16 @@
-export interface RequestOrganization {
+export interface OrganizationCreateInput {
     uf: string,
     city: string,
     address: string,
-    hash_password: string,
     whats_app: string,
+    hash_password: string,
 
     email?: string,
     zip_code?: string,
     responsible_name?: string,
 }
 
-export interface DatabaseOrganization {
+export interface OrganizationStoredData {
     id: string,
     created_at: Date,
 
@@ -18,6 +18,7 @@ export interface DatabaseOrganization {
     city: string,
     address: string,
     whats_app: string,
+    hash_password: string
 
     email?: string,
     zip_code?: string,
@@ -25,6 +26,8 @@ export interface DatabaseOrganization {
 }
 
 export interface OrganizationsRepository {
-    registerOrganization(organizationData: RequestOrganization): Promise<DatabaseOrganization>;
-    findUniqueByWhatsAppNumber(whatsAppNumber: string): Promise<DatabaseOrganization | null>;
+    registerOrganization(organizationData: OrganizationCreateInput): Promise<OrganizationStoredData>;
+
+    findUniqueByEmail(email: string): Promise<OrganizationStoredData | null>;
+    findUniqueByWhatsAppNumber(whatsAppNumber: string): Promise<OrganizationStoredData | null>;
 }
