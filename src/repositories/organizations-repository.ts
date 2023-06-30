@@ -5,24 +5,14 @@ export interface OrganizationCreateInput {
     whats_app: string,
     hash_password: string,
 
-    email?: string,
-    zip_code?: string,
-    responsible_name?: string,
+    email?: string | null,
+    zip_code?: string | null,
+    responsible_name?: string | null,
 }
 
-export interface OrganizationStoredData {
+export interface OrganizationStoredData extends OrganizationCreateInput {
     id: string,
     created_at: Date,
-
-    uf: string,
-    city: string,
-    address: string,
-    whats_app: string,
-    hash_password: string
-
-    email?: string,
-    zip_code?: string,
-    responsible_name?: string,
 }
 
 export interface OrganizationsRepository {
