@@ -1,19 +1,19 @@
 import { describe, it, expect, beforeEach } from "vitest";
 
-import { RegisterPetUseCase } from "./register-pet";
+import { FindPetByIdUseCase } from "./find-pet-by-id";
 import { PetsCreateInput } from "@/repositories/pets-repository";
 import { InMemoryPetsRepository } from "@/repositories/in-memory-repositories/in-memory-pets-repository";
 
 let repository: InMemoryPetsRepository;
-let sut: RegisterPetUseCase
+let sut: FindPetByIdUseCase
 
-describe('Register Pet Use Case', () => {
+describe('Find Pet By Id Use Case', () => {
     beforeEach(() => {
         repository = new InMemoryPetsRepository();
-        sut = new RegisterPetUseCase(repository);
+        sut = new FindPetByIdUseCase(repository);
     })
 
-    it('should be able to register a pet', async () => {
+    it('should be able to find a pet by its id', async () => {
         const newPet: PetsCreateInput = {
             name: 'Fastififi',
             age: 'Adulto',
@@ -26,9 +26,17 @@ describe('Register Pet Use Case', () => {
             requirements: ['Precisa de um lugar amplo']
         }
 
-        const { pet } = await sut.execute(newPet);
+        const registeredPet = await repository.registerPet(newPet);
 
-        expect(repository.items).toHaveLength(1);
-        expect(pet.id).toEqual(expect.any(String));
+        const { pet } = await sut.execute({ id: registeredPet.id });
+
+        expect(pet).not.toBe(null);
+        expect(pet).toHaveProperty('city');
+    })
+
+    it('should receive null when id not found', async () => {
+        const { pet } = await sut.execute({ id: '123' });
+
+        expect(pet).toEqual(null);
     })
 })

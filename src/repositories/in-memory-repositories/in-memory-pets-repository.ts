@@ -2,7 +2,24 @@ import { randomUUID } from "node:crypto";
 import { PetsCreateInput, PetsRepository, PetsStoredData } from "../pets-repository";
 
 export class InMemoryPetsRepository implements PetsRepository {
-    private items: PetsStoredData[] = [];
+    public items: PetsStoredData[] = [];
+
+    async findUniqueById(id: string) {
+        const pet = this.items.find(pet => {
+            return pet.id === id
+        });
+
+        if (!pet) return null;
+        return pet;
+    }
+
+    async findManyByCity(city: string) {
+        const petsInTown = this.items.filter(pet => {
+            return pet.city === city
+        })
+
+        return petsInTown;
+    }
 
     async registerPet(data: PetsCreateInput) {
         const newPet = {

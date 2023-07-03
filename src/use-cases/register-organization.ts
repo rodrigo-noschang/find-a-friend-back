@@ -49,7 +49,7 @@ export class RegisterOrganizationUseCase {
         }
 
         const organization = await this.repository.registerOrganization(data);
-        console.log('Aquii -> ', organization);
+
         return { organization };
     }
 }

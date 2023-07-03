@@ -3,8 +3,8 @@ A ideia é que **organizações** registrem **pets** que estejam disponíveis pa
 
 ## Requisitos Funcionais
 **Pets**:
-- [ ] Deve ser possível cadastrar um pet;
-- [ ] Deve ser possível listar todos os pets disponíveis para adoção em uma **cidade**;
+- [x] Deve ser possível cadastrar um pet;
+- [x] Deve ser possível listar todos os pets disponíveis para adoção em uma **cidade**;
 - [ ] Deve ser possível filtrar pets por suas características;
     - Idade (Filhote ou Adulto);
     - Nível de energia (0 a 5);
