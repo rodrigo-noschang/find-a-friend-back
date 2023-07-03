@@ -14,7 +14,7 @@ A ideia é que **organizações** registrem **pets** que estejam disponíveis pa
 
 **Organizações**:
 - [x] Deve ser possível se cadastrar como uma Organização;
-- [ ] Deve ser possível realizar login como uma Organização;
+- [x] Deve ser possível realizar login como uma Organização;
 
 ## Regras de Negócio
 **Pets:**
@@ -23,8 +23,8 @@ A ideia é que **organizações** registrem **pets** que estejam disponíveis pa
 - [ ] Os filtros de pet são opcionais, com exceção da cidade;
 
 **Organizações**:
-- [ ] Uma Organização **PRECISA** ter endereço e número de WhatsApp;
-- [ ] O número de WhatsApp **PRECISA** ser único;
+- [x] Uma Organização **PRECISA** ter endereço e número de WhatsApp;
+- [x] O número de WhatsApp **PRECISA** ser único;
 - [ ] Para Organização ter permissão de admin, precisa estar logada.
 
 ## Requisitos Não Funcionais
@@ -32,5 +32,5 @@ A ideia é que **organizações** registrem **pets** que estejam disponíveis pa
 - [ ] Os pets devem ser identificados com ids únicos e universais (UUID);
 
 **Organizações:**
-- [ ] As organizações devem ser identificados com ids únicos e universais (UUID);
-- [ ] As organizações devem ser autenticadas via JWT;
+- [x] As organizações devem ser identificados com ids únicos e universais (UUID);
+- [x] As organizações devem ser autenticadas via JWT;
