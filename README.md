@@ -9,8 +9,9 @@ A ideia é que **organizações** registrem **pets** que estejam disponíveis pa
     - Idade (Filhote ou Adulto);
     - Nível de energia (0 a 5);
     - Porte do animal (pequeno, médio grande);
-    - Nídel de independência (baixa, média, alta)
-- [ ] Deve ser possível visualizar detalhes de um pet para adoção;
+    - Nível de independência (baixa, média, alta);
+    - Tipo de animal (Cachorro ou gato);
+- [x] Deve ser possível visualizar detalhes de um pet para adoção;
 
 **Organizações**:
 - [x] Deve ser possível se cadastrar como uma Organização;
@@ -29,7 +30,7 @@ A ideia é que **organizações** registrem **pets** que estejam disponíveis pa
 
 ## Requisitos Não Funcionais
 **Pets:**
-- [ ] Os pets devem ser identificados com ids únicos e universais (UUID);
+- [x] Os pets devem ser identificados com ids únicos e universais (UUID);
 
 **Organizações:**
 - [x] As organizações devem ser identificados com ids únicos e universais (UUID);

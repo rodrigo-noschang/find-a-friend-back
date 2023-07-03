@@ -16,9 +16,19 @@ export interface PetsStoredData extends PetsCreateInput {
     created_at: Date
 }
 
+export interface SearchPetsByCharacteristicParams {
+    energy_level?: number,
+    type?: 'Cachorro' | 'Gato',
+    age?: 'Filhote' | 'Adulto',
+    size?: 'Pequeno' | 'Médio' | 'Grande',
+    independency_level?: 'Baixa' | 'Média' | 'Alta',
+    city: string
+}
+
 export interface PetsRepository {
     registerPet(data: PetsCreateInput): Promise<PetsStoredData>,
 
     findManyByCity(city: string): Promise<PetsStoredData[]>,
-    findUniqueById(id: string): Promise<PetsStoredData | null>
+    findUniqueById(id: string): Promise<PetsStoredData | null>,
+    findManyByCharacteristics(searchParams: SearchPetsByCharacteristicParams): Promise<PetsStoredData[]>,
 }

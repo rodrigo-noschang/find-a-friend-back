@@ -1,8 +1,27 @@
 import { randomUUID } from "node:crypto";
-import { PetsCreateInput, PetsRepository, PetsStoredData } from "../pets-repository";
+
+import {
+    SearchPetsByCharacteristicParams,
+    PetsCreateInput,
+    PetsRepository,
+    PetsStoredData
+} from "../pets-repository";
+import { compareDogsCharacteristics } from "@/utils/compare-pets-characteristics";
 
 export class InMemoryPetsRepository implements PetsRepository {
     public items: PetsStoredData[] = [];
+
+    async findManyByCharacteristics(searchParams: SearchPetsByCharacteristicParams) {
+
+        const sameCityPets = await this.findManyByCity(searchParams.city);
+
+        const matchedPets = compareDogsCharacteristics({
+            desiredCharacteristics: searchParams,
+            sameCityPets
+        })
+
+        return matchedPets;
+    }
 
     async findUniqueById(id: string) {
         const pet = this.items.find(pet => {
@@ -33,3 +52,10 @@ export class InMemoryPetsRepository implements PetsRepository {
         return newPet
     }
 }
+
+const exe = new InMemoryPetsRepository();
+exe.findManyByCharacteristics({
+    age: "Adulto",
+    size: "Grande",
+    city: "Maringá"
+})
