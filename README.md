@@ -5,7 +5,7 @@ A ideia é que **organizações** registrem **pets** que estejam disponíveis pa
 **Pets**:
 - [x] Deve ser possível cadastrar um pet;
 - [x] Deve ser possível listar todos os pets disponíveis para adoção em uma **cidade**;
-- [ ] Deve ser possível filtrar pets por suas características;
+- [x] Deve ser possível filtrar pets por suas características;
     - Idade (Filhote ou Adulto);
     - Nível de energia (0 a 5);
     - Porte do animal (pequeno, médio grande);
@@ -19,9 +19,9 @@ A ideia é que **organizações** registrem **pets** que estejam disponíveis pa
 
 ## Regras de Negócio
 **Pets:**
-- [ ] Para listar os pets, é **necessário** informar uma cidade;
-- [ ] Um pet **PRECISA** está ligado a uma Organização;
-- [ ] Os filtros de pet são opcionais, com exceção da cidade;
+- [x] Para listar os pets, é **necessário** informar uma cidade;
+- [x] Um pet **PRECISA** estar ligado a uma Organização;
+- [x] Os filtros de pet são opcionais, com exceção da cidade;
 
 **Organizações**:
 - [x] Uma Organização **PRECISA** ter endereço e número de WhatsApp;

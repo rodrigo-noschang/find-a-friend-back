@@ -1,8 +1,6 @@
-import { z } from "zod";
-
 import { PetsRepository, PetsStoredData } from "@/repositories/pets-repository";
 
-interface RegsiterPetUseCaseRequest {
+interface PetData {
     name: string,
     about?: string | null,
     type: 'Cachorro' | 'Gato',
@@ -15,6 +13,11 @@ interface RegsiterPetUseCaseRequest {
     city: string
 }
 
+interface RegsiterPetUseCaseRequest {
+    petData: PetData
+    organizationId: string
+}
+
 interface RegisterUseCaseResponse {
     pet: PetsStoredData
 }
@@ -23,9 +26,9 @@ export class RegisterPetUseCase {
     constructor(private repository: PetsRepository) { }
 
     async execute(
-        requestData: RegsiterPetUseCaseRequest
+        { petData, organizationId }: RegsiterPetUseCaseRequest
     ): Promise<RegisterUseCaseResponse> {
-        const newPet = await this.repository.registerPet(requestData);
+        const newPet = await this.repository.registerPet(petData, organizationId);
 
         return {
             pet: newPet

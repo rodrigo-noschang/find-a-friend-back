@@ -1,16 +1,16 @@
 import { describe, it, expect, beforeEach } from "vitest";
 
-import { SearchPetsByCharacteristicsUseCase } from "./search-pets-by-characteristics";
+import { findManyByCityAndOrCharacteristicsUseCase } from "./find-many-by-city-and-or-characteristics";
 import { PetsCreateInput, SearchPetsByCharacteristicParams } from "@/repositories/pets-repository";
 import { InMemoryPetsRepository } from "@/repositories/in-memory-repositories/in-memory-pets-repository";
 
 let repository: InMemoryPetsRepository;
-let sut: SearchPetsByCharacteristicsUseCase
+let sut: findManyByCityAndOrCharacteristicsUseCase
 
 describe('Search Pets By Characteristics Use Case', () => {
     beforeEach(() => {
         repository = new InMemoryPetsRepository();
-        sut = new SearchPetsByCharacteristicsUseCase(repository);
+        sut = new findManyByCityAndOrCharacteristicsUseCase(repository);
     })
 
     it('should be able to find pets with matching characteristics', async () => {
@@ -38,17 +38,19 @@ describe('Search Pets By Characteristics Use Case', () => {
             age: 'Filhote'
         }
 
-        await repository.registerPet(newPet1);
-        await repository.registerPet(newPet2);
-        await repository.registerPet(newPet3);
+        await repository.registerPet(newPet1, 'organization-01');
+        await repository.registerPet(newPet2, 'organization-01');
+        await repository.registerPet(newPet3, 'organization-01');
 
         const searchParams: SearchPetsByCharacteristicParams = {
             age: 'Adulto',
-            size: 'Médio',
-            city: 'Cidade 01',
+            size: 'Médio'
         }
 
-        const { pets } = await sut.execute({ searchParams })
+        const { pets } = await sut.execute({
+            searchParams,
+            city: 'Cidade 01'
+        })
 
         expect(pets).toHaveLength(2);
         expect(pets).toEqual([
@@ -61,7 +63,7 @@ describe('Search Pets By Characteristics Use Case', () => {
         ])
     })
 
-    it('should not find matching pets in other city', async () => {
+    it('should not find matching pets in different cities', async () => {
         const newPet1: PetsCreateInput = {
             name: 'Pet 1',
             age: 'Adulto',
@@ -80,16 +82,18 @@ describe('Search Pets By Characteristics Use Case', () => {
             city: 'Cidade 02'
         }
 
+        await repository.registerPet(newPet1, 'organization-01');
+        await repository.registerPet(newPet2, 'organization-01');
+
         const searchParams: SearchPetsByCharacteristicParams = {
             age: 'Adulto',
-            size: 'Médio',
-            city: 'Cidade 01',
+            size: 'Médio'
         }
 
-        await repository.registerPet(newPet1);
-        await repository.registerPet(newPet2);
-
-        const { pets } = await sut.execute({ searchParams });
+        const { pets } = await sut.execute({
+            searchParams,
+            city: 'Cidade 01'
+        })
 
         expect(pets).toHaveLength(1);
         expect(pets).toEqual([

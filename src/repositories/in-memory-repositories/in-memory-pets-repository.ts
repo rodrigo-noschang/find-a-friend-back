@@ -11,16 +11,26 @@ import { compareDogsCharacteristics } from "@/utils/compare-pets-characteristics
 export class InMemoryPetsRepository implements PetsRepository {
     public items: PetsStoredData[] = [];
 
-    async findManyByCharacteristics(searchParams: SearchPetsByCharacteristicParams) {
-
-        const sameCityPets = await this.findManyByCity(searchParams.city);
-
-        const matchedPets = compareDogsCharacteristics({
-            desiredCharacteristics: searchParams,
-            sameCityPets
+    async findManyByCityAndOrCharacteristics(
+        city: string,
+        searchParams: SearchPetsByCharacteristicParams
+    ) {
+        const sameCityPets = this.items.filter(pet => {
+            return pet.city === city;
         })
 
-        return matchedPets;
+        const shouldFilterByCharacteristics = Object.keys(searchParams).length > 0;
+
+        if (shouldFilterByCharacteristics) {
+            const filteredPets = compareDogsCharacteristics({
+                desiredCharacteristics: searchParams,
+                sameCityPets
+            })
+
+            return filteredPets;
+        }
+
+        return sameCityPets;
     }
 
     async findUniqueById(id: string) {
@@ -32,19 +42,12 @@ export class InMemoryPetsRepository implements PetsRepository {
         return pet;
     }
 
-    async findManyByCity(city: string) {
-        const petsInTown = this.items.filter(pet => {
-            return pet.city === city
-        })
-
-        return petsInTown;
-    }
-
-    async registerPet(data: PetsCreateInput) {
+    async registerPet(data: PetsCreateInput, organizationId: string) {
         const newPet = {
             ...data,
             id: randomUUID(),
-            created_at: new Date()
+            created_at: new Date(),
+            organization_id: organizationId
         }
 
         this.items.push(newPet);
@@ -52,10 +55,3 @@ export class InMemoryPetsRepository implements PetsRepository {
         return newPet
     }
 }
-
-const exe = new InMemoryPetsRepository();
-exe.findManyByCharacteristics({
-    age: "Adulto",
-    size: "Grande",
-    city: "Maringá"
-})

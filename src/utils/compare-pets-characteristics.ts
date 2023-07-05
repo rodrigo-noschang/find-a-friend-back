@@ -1,7 +1,7 @@
-import { PetsStoredData, SearchPetByCharacteristicParams } from "@/repositories/pets-repository";
+import { PetsStoredData, SearchPetsByCharacteristicParams, } from "@/repositories/pets-repository";
 
 interface CompareDogsCharacteristicsParams {
-    desiredCharacteristics: SearchPetByCharacteristicParams,
+    desiredCharacteristics: SearchPetsByCharacteristicParams,
     sameCityPets: PetsStoredData[]
 }
 
