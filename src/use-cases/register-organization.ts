@@ -5,8 +5,8 @@ import { OrganizationStoredData, OrganizationsRepository } from '@/repositories/
 import { UniqueViolation } from "./errors/unique-violation-error";
 
 interface RegisterOrganizationUseCaseRequest {
-    uf: string,
     city: string,
+    state: string,
     address: string,
     password: string,
     whats_app: string,

@@ -1,6 +1,6 @@
 export interface OrganizationCreateInput {
-    uf: string,
     city: string,
+    state: string,
     address: string,
     whats_app: string,
     hash_password: string,

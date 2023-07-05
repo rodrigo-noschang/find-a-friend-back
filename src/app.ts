@@ -2,6 +2,8 @@ import { ZodError } from "zod";
 import { fastify } from "fastify";
 import fastifyJwt from '@fastify/jwt';
 
+import { organizationRoutes } from "./http/controllers/organizations/organization.routes";
+
 import { env } from "./env";
 
 export const app = fastify();
@@ -13,11 +15,7 @@ app.register(fastifyJwt, {
     }
 });
 
-app.get('/hello', (request, reply) => {
-    return reply.send({
-        message: "Hi there"
-    })
-})
+app.register(organizationRoutes);
 
 app.setErrorHandler((error, _, reply) => {
     if (error instanceof ZodError) {
