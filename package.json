@@ -21,6 +21,7 @@
   "homepage": "https://github.com/rodrigo-noschang/find-a-friend-back#readme",
   "devDependencies": {
     "@types/node": "^20.3.2",
+    "prisma": "^4.16.2",
     "tsx": "^3.12.7",
     "typescript": "^5.1.6",
     "vite-tsconfig-paths": "^4.2.0",
