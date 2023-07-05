@@ -13,10 +13,11 @@ export class InMemoryPetsRepository implements PetsRepository {
 
     async findManyByCityAndOrCharacteristics(
         city: string,
+        state: string,
         searchParams: SearchPetsByCharacteristicParams
     ) {
         const sameCityPets = this.items.filter(pet => {
-            return pet.city === city;
+            return pet.city === city && pet.state === state;
         })
 
         const shouldFilterByCharacteristics = Object.keys(searchParams).length > 0;

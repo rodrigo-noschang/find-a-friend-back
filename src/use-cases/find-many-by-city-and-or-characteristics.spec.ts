@@ -18,6 +18,7 @@ describe('Search Pets By Characteristics Use Case', () => {
             name: 'Pet 1',
             age: 'Adulto',
             city: 'Cidade 01',
+            state: 'ST',
             energy_level: 3,
             independency_level: 'Baixa',
             size: 'Médio',
@@ -49,7 +50,8 @@ describe('Search Pets By Characteristics Use Case', () => {
 
         const { pets } = await sut.execute({
             searchParams,
-            city: 'Cidade 01'
+            city: 'Cidade 01',
+            state: 'ST'
         })
 
         expect(pets).toHaveLength(2);
@@ -68,6 +70,7 @@ describe('Search Pets By Characteristics Use Case', () => {
             name: 'Pet 1',
             age: 'Adulto',
             city: 'Cidade 01',
+            state: 'ST',
             energy_level: 3,
             independency_level: 'Baixa',
             size: 'Médio',
@@ -92,7 +95,8 @@ describe('Search Pets By Characteristics Use Case', () => {
 
         const { pets } = await sut.execute({
             searchParams,
-            city: 'Cidade 01'
+            city: 'Cidade 01',
+            state: 'ST',
         })
 
         expect(pets).toHaveLength(1);

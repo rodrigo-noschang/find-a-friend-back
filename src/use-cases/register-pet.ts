@@ -11,6 +11,7 @@ interface PetData {
     independency_level: 'Baixa' | 'Média' | 'Alta',
 
     city: string
+    state: string
 }
 
 interface RegsiterPetUseCaseRequest {

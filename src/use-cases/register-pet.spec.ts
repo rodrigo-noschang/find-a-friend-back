@@ -15,8 +15,9 @@ describe('Register Pet Use Case', () => {
 
     it('should be able to register a pet', async () => {
         const newPet: PetsCreateInput = {
-            name: 'Fastififi',
+            state: 'SP',
             age: 'Adulto',
+            name: 'Fastififi',
             city: 'São Paulo',
             energy_level: 3,
             independency_level: 'Baixa',

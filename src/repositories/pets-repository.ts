@@ -9,6 +9,7 @@ export interface PetsCreateInput {
     independency_level: 'Baixa' | 'Média' | 'Alta',
 
     city: string
+    state: string
 }
 
 export interface PetsStoredData extends PetsCreateInput {
@@ -29,5 +30,5 @@ export interface PetsRepository {
     registerPet(data: PetsCreateInput, organizationId: string): Promise<PetsStoredData>,
 
     findUniqueById(id: string): Promise<PetsStoredData | null>,
-    findManyByCityAndOrCharacteristics(city: string, searchParams: SearchPetsByCharacteristicParams): Promise<PetsStoredData[]>
+    findManyByCityAndOrCharacteristics(city: string, state: string, searchParams: SearchPetsByCharacteristicParams): Promise<PetsStoredData[]>
 }

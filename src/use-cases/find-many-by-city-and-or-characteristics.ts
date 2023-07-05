@@ -6,6 +6,7 @@ import {
 
 interface findManyByCityAndOrCharacteristics {
     city: string,
+    state: string
     searchParams?: SearchPetsByCharacteristicParams
 }
 
@@ -18,10 +19,11 @@ export class findManyByCityAndOrCharacteristicsUseCase {
 
     async execute({
         city,
+        state,
         searchParams = {} as SearchPetsByCharacteristicParams
     }: findManyByCityAndOrCharacteristics): Promise<findManyByCityAndOrCharacteristicsResponse> {
 
-        const pets = await this.repository.findManyByCityAndOrCharacteristics(city, searchParams);
+        const pets = await this.repository.findManyByCityAndOrCharacteristics(city, state, searchParams);
 
         return {
             pets
