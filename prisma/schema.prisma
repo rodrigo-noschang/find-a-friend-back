@@ -33,10 +33,12 @@ enum Animal {
 }
 
 model Organization {
-  id        String  @id @default(uuid())
-  name      String?
-  email     String  @unique
-  whats_app String  @unique
+  id               String   @id @default(uuid())
+  name             String
+  email            String   @unique
+  whats_app        String   @unique
+  created_at       DateTime @default(now())
+  responsible_name String
 
   hash_password String
 
@@ -44,6 +46,7 @@ model Organization {
   state    String
   address  String
   zip_code String?
+  Pet      Pet[]
 
   @@index([state, city, whats_app])
   @@map("organizations")
@@ -59,6 +62,14 @@ model Pet {
   requirements       String[]
   independency_level PetIndependencyLevel
   animal             Animal
+  created_at         DateTime             @default(now())
+  updated_at         DateTime             @default(now())
+
+  city  String
+  state String
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
 
   @@index([age, size, energy, independency_level])
   @@map("pets")

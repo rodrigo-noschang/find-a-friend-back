@@ -1,19 +1,21 @@
 import { hash } from 'bcrypt';
-
-import { OrganizationStoredData, OrganizationsRepository } from '@/repositories/organizations-repository';
+import { Prisma } from '@prisma/client';
 
 import { UniqueViolation } from "./errors/unique-violation-error";
 
+import { OrganizationStoredData, OrganizationsRepository } from '@/repositories/organizations-repository';
+
 interface RegisterOrganizationUseCaseRequest {
     city: string,
+    name: string
     state: string,
     address: string,
     password: string,
     whats_app: string,
 
-    email?: string,
-    zip_code?: string,
-    responsible_name?: string,
+    email: string,
+    zip_code: string | null,
+    responsible_name: string | null,
 }
 
 interface RegisterOrganizationUseCaseResponse {
@@ -42,9 +44,11 @@ export class RegisterOrganizationUseCase {
 
         const hash_password = await hash(newOrganizationData.password, 6);
 
+        const inputData: any = { ...newOrganizationData };
+        delete inputData.password;
+
         const data = {
-            ...newOrganizationData,
-            password: undefined,
+            ...inputData,
             hash_password
         }
 

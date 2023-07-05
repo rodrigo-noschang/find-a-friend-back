@@ -1,13 +1,16 @@
+import { Prisma } from "@prisma/client";
+
 export interface OrganizationCreateInput {
     city: string,
+    name: string,
     state: string,
     address: string,
     whats_app: string,
+    email: string | null,
     hash_password: string,
 
-    email?: string | null,
-    zip_code?: string | null,
-    responsible_name?: string | null,
+    responsible_name: string | null,
+    zip_code: string | null,
 }
 
 export interface OrganizationStoredData extends OrganizationCreateInput {
@@ -16,7 +19,7 @@ export interface OrganizationStoredData extends OrganizationCreateInput {
 }
 
 export interface OrganizationsRepository {
-    registerOrganization(organizationData: OrganizationCreateInput): Promise<OrganizationStoredData>;
+    registerOrganization(organizationData: Prisma.OrganizationCreateInput): Promise<OrganizationStoredData>;
 
     findUniqueByEmail(email: string): Promise<OrganizationStoredData | null>;
     findUniqueByWhatsAppNumber(whatsAppNumber: string): Promise<OrganizationStoredData | null>;
