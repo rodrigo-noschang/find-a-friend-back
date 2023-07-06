@@ -5,7 +5,7 @@ import { makeRegisterOrganizationUseCase } from "@/factories/make-register-organ
 import { UniqueViolation } from "@/use-cases/errors/unique-violation-error";
 
 export async function registerOrganization(request: FastifyRequest, reply: FastifyReply) {
-    const registerOrganizationSchema = z.object({
+    const registerOrganizationBodySchema = z.object({
         name: z.string().max(20),
         email: z.string().email(),
         responsible_name: z.string().max(20).nullable(),
@@ -22,7 +22,7 @@ export async function registerOrganization(request: FastifyRequest, reply: Fasti
         zip_code: z.string().max(9).nullable()
     });
 
-    const organizationData = registerOrganizationSchema.parse(request.body);
+    const organizationData = registerOrganizationBodySchema.parse(request.body);
 
     try {
         const useCase = makeRegisterOrganizationUseCase();

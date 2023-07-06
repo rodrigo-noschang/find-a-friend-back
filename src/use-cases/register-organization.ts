@@ -1,5 +1,4 @@
 import { hash } from 'bcrypt';
-import { Prisma } from '@prisma/client';
 
 import { UniqueViolation } from "./errors/unique-violation-error";
 

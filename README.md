@@ -26,7 +26,8 @@ A ideia é que **organizações** registrem **pets** que estejam disponíveis pa
 **Organizações**:
 - [x] Uma Organização **PRECISA** ter endereço e número de WhatsApp;
 - [x] O número de WhatsApp **PRECISA** ser único;
-- [ ] Para Organização ter permissão de admin, precisa estar logada.
+- [x] Para Organização ter permissão de admin, precisa estar logada;
+- [x] Authenticação será controlada via Refresh Token;
 
 ## Requisitos Não Funcionais
 **Pets:**
