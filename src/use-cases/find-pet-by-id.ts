@@ -1,12 +1,13 @@
+import { Pet } from "@prisma/client";
+
 import { InMemoryPetsRepository } from "@/repositories/in-memory-repositories/in-memory-pets-repository";
-import { PetsStoredData } from "@/repositories/pets-repository";
 
 interface FindPetByIdUseCaseRequest {
     id: string
 }
 
 interface FindPetByIdUseCaseResponse {
-    pet: PetsStoredData | null
+    pet: Pet | null
 }
 
 export class FindPetByIdUseCase {

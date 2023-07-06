@@ -1,15 +1,14 @@
+import { Pet, Prisma } from "@prisma/client";
 import { randomUUID } from "node:crypto";
 
 import {
     SearchPetsByCharacteristicParams,
-    PetsCreateInput,
-    PetsRepository,
-    PetsStoredData
+    PetsRepository
 } from "../pets-repository";
 import { compareDogsCharacteristics } from "@/utils/compare-pets-characteristics";
 
 export class InMemoryPetsRepository implements PetsRepository {
-    public items: PetsStoredData[] = [];
+    public items: Pet[] = [];
 
     async findManyByCityAndOrCharacteristics(
         city: string,
@@ -43,12 +42,14 @@ export class InMemoryPetsRepository implements PetsRepository {
         return pet;
     }
 
-    async registerPet(data: PetsCreateInput, organizationId: string) {
+    async registerPet(data: Prisma.PetUncheckedCreateInput) {
         const newPet = {
             ...data,
             id: randomUUID(),
+            about: data.about ?? null,
+            updated_at: new Date(),
+            requirements: Array.isArray(data.requirements) ? data.requirements : [],
             created_at: new Date(),
-            organization_id: organizationId
         }
 
         this.items.push(newPet);

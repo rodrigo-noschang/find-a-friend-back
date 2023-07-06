@@ -15,10 +15,14 @@ describe('Register Organization Use Case', () => {
 
     it('should be able to register organization', async () => {
         const { organization } = await sut.execute({
+            name: 'First Organization',
+            email: 'first-org@mail.com',
+            responsible_name: null,
+            zip_code: null,
             whats_app: '44999999999',
             address: 'First Organization Street',
             city: 'City 1',
-            uf: 'UF 1',
+            state: 'UF 1',
             password: '123456',
         })
 
@@ -34,19 +38,27 @@ describe('Register Organization Use Case', () => {
 
     it('should not be able to register 2 organizations with the same phone number', async () => {
         await sut.execute({
+            name: 'First Organization',
+            email: 'first-org@mail.com',
+            responsible_name: null,
+            zip_code: null,
             whats_app: '44999999999',
             address: 'First Organization Street',
             city: 'City 1',
-            uf: 'UF 1',
+            state: 'UF 1',
             password: '123456',
         });
 
         await expect(() => {
             return sut.execute({
+                name: 'Second Organization',
+                email: 'second-org@mail.com',
+                responsible_name: null,
+                zip_code: null,
                 whats_app: '44999999999',
                 address: 'Second Organization Street',
                 city: 'City 2',
-                uf: 'UF 2',
+                state: 'UF 2',
                 password: '123456',
             })
         }).rejects.toBeInstanceOf(UniqueViolation);
@@ -54,22 +66,28 @@ describe('Register Organization Use Case', () => {
 
     it('should not be able to register 2 organizations with same email', async () => {
         await sut.execute({
+            name: 'First Organization',
+            email: 'first-org@mail.com',
+            responsible_name: null,
+            zip_code: null,
             whats_app: '44999999999',
             address: 'First Organization Street',
             city: 'City 1',
-            uf: 'UF 1',
+            state: 'UF 1',
             password: '123456',
-            email: 'first.organization@mail.com'
         });
 
         await expect(() => {
             return sut.execute({
-                whats_app: '44999999910',
+                name: 'Second Organization',
+                email: 'second-org@mail.com',
+                responsible_name: null,
+                zip_code: null,
+                whats_app: '44999999999',
                 address: 'Second Organization Street',
                 city: 'City 2',
-                uf: 'UF 2',
+                state: 'UF 2',
                 password: '123456',
-                email: 'first.organization@mail.com'
             })
         }).rejects.toBeInstanceOf(UniqueViolation);
     })

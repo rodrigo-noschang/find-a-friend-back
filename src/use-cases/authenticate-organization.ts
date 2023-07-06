@@ -1,7 +1,8 @@
 import { compare } from 'bcrypt';
+import { Organization } from '@prisma/client';
 
 import { InvalidCredentialsError } from "./errors/invalid-credentials-error";
-import { OrganizationStoredData, OrganizationsRepository } from "@/repositories/organizations-repository";
+import { OrganizationsRepository } from "@/repositories/organizations-repository";
 
 interface AuthenticateOrganizationUseCaseRequest {
     email: string,
@@ -9,7 +10,7 @@ interface AuthenticateOrganizationUseCaseRequest {
 }
 
 interface AuthenticateOrganizationUseCaseResponse {
-    organization: OrganizationStoredData;
+    organization: Organization;
 }
 
 export class AuthenticateOrganizationUseCase {

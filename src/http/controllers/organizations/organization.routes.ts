@@ -5,8 +5,8 @@ import { authenticateOrganization } from "./authenticate-organization.controller
 import { refreshOrganizationToken } from "./refresth-organization-token.controller";
 
 export async function organizationRoutes(app: FastifyInstance) {
-    app.post('/organizations', registerOrganization);
-    app.post('/organizations/session', authenticateOrganization);
+    app.post('', registerOrganization);
+    app.post('/session', authenticateOrganization);
 
-    app.patch('/organizations/session/refresh', refreshOrganizationToken);
+    app.patch('/session/refresh', refreshOrganizationToken);
 }

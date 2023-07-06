@@ -1,9 +1,11 @@
 import { randomUUID } from "node:crypto";
+import { Prisma, Organization } from "@prisma/client";
 
-import { OrganizationsRepository, OrganizationCreateInput, OrganizationStoredData } from "../organizations-repository";
+
+import { OrganizationsRepository } from "../organizations-repository";
 
 export class InMemoryOrganizationsRepository implements OrganizationsRepository {
-    public items: OrganizationStoredData[] = [];
+    public items: Organization[] = [];
 
     async findUniqueByEmail(email: string) {
         const isEmailRegistered = this.items.find(item => {
@@ -25,19 +27,18 @@ export class InMemoryOrganizationsRepository implements OrganizationsRepository 
         return existingWhatsAppNumber;
     }
 
-    async registerOrganization(data: OrganizationCreateInput) {
+    async registerOrganization(data: Prisma.OrganizationCreateInput) {
         const newOrganization = {
+            ...data,
             id: randomUUID(),
             created_at: new Date(),
-            ...data
+            zip_code: data.zip_code ?? null
         }
 
         this.items.push(newOrganization);
 
         const returnableData: any = { ...newOrganization };
         delete returnableData.hash_password;
-        delete returnableData.password;
-
 
         return returnableData;
     }

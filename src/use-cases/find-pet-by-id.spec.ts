@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
+import { Prisma } from "@prisma/client";
 
 import { FindPetByIdUseCase } from "./find-pet-by-id";
-import { PetsCreateInput } from "@/repositories/pets-repository";
 import { InMemoryPetsRepository } from "@/repositories/in-memory-repositories/in-memory-pets-repository";
 
 let repository: InMemoryPetsRepository;
@@ -14,16 +14,18 @@ describe('Find Pet By Id Use Case', () => {
     })
 
     it('should be able to find a pet by its id', async () => {
-        const newPet: PetsCreateInput = {
+        const newPet: Prisma.PetUncheckedCreateInput = {
             name: 'Fastififi',
             age: 'Adulto',
             city: 'São Paulo',
+            state: 'SP',
             energy_level: 3,
-            independency_level: 'Baixa',
-            size: 'Médio',
+            independency_level: 'Baixo',
+            size: 'Medio',
             type: 'Cachorro',
             about: null,
-            requirements: ['Precisa de um lugar amplo']
+            requirements: ['Precisa de um lugar amplo'],
+            organization_id: 'organization-01'
         }
 
         const registeredPet = await repository.registerPet(newPet);

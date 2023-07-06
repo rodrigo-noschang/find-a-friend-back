@@ -1,8 +1,9 @@
 import { hash } from 'bcrypt';
+import { Organization } from '@prisma/client';
 
 import { UniqueViolation } from "./errors/unique-violation-error";
 
-import { OrganizationStoredData, OrganizationsRepository } from '@/repositories/organizations-repository';
+import { OrganizationsRepository } from '@/repositories/organizations-repository';
 
 interface RegisterOrganizationUseCaseRequest {
     city: string,
@@ -18,7 +19,7 @@ interface RegisterOrganizationUseCaseRequest {
 }
 
 interface RegisterOrganizationUseCaseResponse {
-    organization: OrganizationStoredData
+    organization: Organization
 }
 
 export class RegisterOrganizationUseCase {

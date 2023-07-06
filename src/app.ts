@@ -6,6 +6,7 @@ import fastifyCookie from "@fastify/cookie";
 import { organizationRoutes } from "./http/controllers/organizations/organization.routes";
 
 import { env } from "./env";
+import { petsRoutes } from "./http/controllers/pets/pets.routes";
 
 export const app = fastify();
 
@@ -21,7 +22,11 @@ app.register(fastifyJwt, {
     }
 });
 
-app.register(organizationRoutes);
+app.register(organizationRoutes, {
+    prefix: '/organizations'
+});
+app.register(petsRoutes);
+
 app.register(fastifyCookie);
 
 app.setErrorHandler((error, _, reply) => {

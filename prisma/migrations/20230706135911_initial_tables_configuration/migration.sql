@@ -34,15 +34,15 @@ CREATE TABLE "pets" (
     "about" TEXT,
     "age" "PetAge" NOT NULL,
     "size" "PetSize" NOT NULL,
-    "energy" INTEGER NOT NULL,
+    "energy_level" INTEGER NOT NULL,
     "requirements" TEXT[],
     "independency_level" "PetIndependencyLevel" NOT NULL,
-    "animal" "Animal" NOT NULL,
+    "type" "Animal" NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "city" TEXT NOT NULL,
     "state" TEXT NOT NULL,
-    "organizationId" TEXT NOT NULL,
+    "organization_id" TEXT NOT NULL,
 
     CONSTRAINT "pets_pkey" PRIMARY KEY ("id")
 );
@@ -57,7 +57,7 @@ CREATE UNIQUE INDEX "organizations_whats_app_key" ON "organizations"("whats_app"
 CREATE INDEX "organizations_state_city_whats_app_idx" ON "organizations"("state", "city", "whats_app");
 
 -- CreateIndex
-CREATE INDEX "pets_age_size_energy_independency_level_idx" ON "pets"("age", "size", "energy", "independency_level");
+CREATE INDEX "pets_age_size_energy_level_independency_level_idx" ON "pets"("age", "size", "energy_level", "independency_level");
 
 -- AddForeignKey
-ALTER TABLE "pets" ADD CONSTRAINT "pets_organizationId_fkey" FOREIGN KEY ("organizationId") REFERENCES "organizations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "pets" ADD CONSTRAINT "pets_organization_id_fkey" FOREIGN KEY ("organization_id") REFERENCES "organizations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -58,19 +58,19 @@ model Pet {
   about              String?
   age                PetAge
   size               PetSize
-  energy             Int
+  energy_level       Int
   requirements       String[]
   independency_level PetIndependencyLevel
-  animal             Animal
+  type               Animal
   created_at         DateTime             @default(now())
   updated_at         DateTime             @default(now())
 
   city  String
   state String
 
-  organization   Organization @relation(fields: [organizationId], references: [id])
-  organizationId String
+  organization    Organization @relation(fields: [organization_id], references: [id])
+  organization_id String
 
-  @@index([age, size, energy, independency_level])
+  @@index([age, size, energy_level, independency_level])
   @@map("pets")
 }

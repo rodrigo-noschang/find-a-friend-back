@@ -16,11 +16,14 @@ async function createOrganization() {
         id: randomUUID(),
         created_at: new Date(),
 
+        name: 'First Organization',
+        email: 'first.organization@mail.com',
+        responsible_name: 'Responsible',
+        zip_code: null,
         whats_app: '44999999999',
         address: 'First Organization Street',
         city: 'City 1',
-        uf: 'UF 1',
-        email: 'first.organization@mail.com',
+        state: 'UF 1',
         hash_password
     })
 }

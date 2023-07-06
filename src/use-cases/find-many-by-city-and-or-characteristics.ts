@@ -1,8 +1,8 @@
 import {
     PetsRepository,
-    PetsStoredData,
     SearchPetsByCharacteristicParams
 } from "@/repositories/pets-repository";
+import { Pet } from "@prisma/client";
 
 interface findManyByCityAndOrCharacteristics {
     city: string,
@@ -11,7 +11,7 @@ interface findManyByCityAndOrCharacteristics {
 }
 
 interface findManyByCityAndOrCharacteristicsResponse {
-    pets: PetsStoredData[]
+    pets: Pet[]
 }
 
 export class findManyByCityAndOrCharacteristicsUseCase {

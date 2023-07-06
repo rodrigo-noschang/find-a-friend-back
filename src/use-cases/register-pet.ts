@@ -1,35 +1,22 @@
-import { PetsRepository, PetsStoredData } from "@/repositories/pets-repository";
+import { Pet, Prisma } from "@prisma/client";
 
-interface PetData {
-    name: string,
-    about?: string | null,
-    type: 'Cachorro' | 'Gato',
-    age: 'Filhote' | 'Adulto',
-    size: 'Pequeno' | 'Médio' | 'Grande',
-    energy_level: number,
-    requirements?: string[],
-    independency_level: 'Baixa' | 'Média' | 'Alta',
+import { PetsRepository } from "@/repositories/pets-repository";
 
-    city: string
-    state: string
-}
-
-interface RegsiterPetUseCaseRequest {
-    petData: PetData
-    organizationId: string
+interface RegisterPetUseCaseRequest {
+    petData: Prisma.PetUncheckedCreateInput
 }
 
 interface RegisterUseCaseResponse {
-    pet: PetsStoredData
+    pet: Pet
 }
 
 export class RegisterPetUseCase {
     constructor(private repository: PetsRepository) { }
 
     async execute(
-        { petData, organizationId }: RegsiterPetUseCaseRequest
+        { petData }: RegisterPetUseCaseRequest
     ): Promise<RegisterUseCaseResponse> {
-        const newPet = await this.repository.registerPet(petData, organizationId);
+        const newPet = await this.repository.registerPet(petData);
 
         return {
             pet: newPet
