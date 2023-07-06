@@ -1,6 +1,6 @@
 import { Pet } from "@prisma/client";
 
-import { InMemoryPetsRepository } from "@/repositories/in-memory-repositories/in-memory-pets-repository";
+import { PetsRepository } from "@/repositories/pets-repository";
 
 interface FindPetByIdUseCaseRequest {
     id: string
@@ -11,7 +11,7 @@ interface FindPetByIdUseCaseResponse {
 }
 
 export class FindPetByIdUseCase {
-    constructor(private repository: InMemoryPetsRepository) { }
+    constructor(private repository: PetsRepository) { }
 
     async execute(
         { id }: FindPetByIdUseCaseRequest

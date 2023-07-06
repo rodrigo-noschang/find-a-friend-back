@@ -16,7 +16,7 @@ export async function registerOrganization(request: FastifyRequest, reply: Fasti
             message: 'Phone number format invalid'
         }),
         password: z.string().min(6),
-        city: z.string(),
+        city: z.string().max(20),
         state: z.string().length(2).toUpperCase(),
         address: z.string().max(40),
         zip_code: z.string().max(9).nullable()

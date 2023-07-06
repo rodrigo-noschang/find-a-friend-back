@@ -13,10 +13,35 @@ export class PrismaPetsRepository implements PetsRepository {
     }
 
     async findUniqueById(id: string) {
+        const pet = await prisma.pet.findUnique({
+            where: {
+                id
+            }
+        })
 
+        return pet;
     }
 
     async findManyByCityAndOrCharacteristics(city: string, state: string, searchParams: SearchPetsByCharacteristicParams) {
+        const {
+            age,
+            energy_level,
+            independency_level,
+            size,
+            type } = searchParams;
 
+        const pets = await prisma.pet.findMany({
+            where: {
+                city,
+                state,
+                age,
+                energy_level,
+                independency_level,
+                size,
+                type
+            }
+        })
+
+        return pets;
     }
 }

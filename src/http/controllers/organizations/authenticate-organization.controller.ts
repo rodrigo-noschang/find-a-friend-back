@@ -23,7 +23,7 @@ export async function authenticateOrganization(request: FastifyRequest, reply: F
         const token = await reply.jwtSign({}, {
             sign: {
                 sub: organization.id,
-                expiresIn: '10min'
+                expiresIn: '10m'
             }
         })
 
