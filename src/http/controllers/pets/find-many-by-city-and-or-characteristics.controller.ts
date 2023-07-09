@@ -6,6 +6,7 @@ export async function findManyByCityAndOrCharacteristics(request: FastifyRequest
     const findManyQuerySchema = z.object({
         city: z.string(),
         state: z.string().max(2).min(2).toUpperCase(),
+        page: z.coerce.number().optional().default(1),
         energy_level: z.coerce.number().min(0).max(5).optional(),
         type: z.enum(['Cachorro', 'Gato']).optional(),
         age: z.enum(['Filhote', 'Adulto']).optional(),
@@ -13,12 +14,13 @@ export async function findManyByCityAndOrCharacteristics(request: FastifyRequest
         independency_level: z.enum(['Baixo', 'Medio', 'Alto']).optional(),
     })
 
-    const { city, state, ...searchParams } = findManyQuerySchema.parse(request.query);
+    const { city, state, page, ...searchParams } = findManyQuerySchema.parse(request.query);
 
     try {
         const useCase = makeFindManyByCityAndOrCharacteristics();
         const { pets } = await useCase.execute({
             city,
+            page,
             state,
             searchParams
         })

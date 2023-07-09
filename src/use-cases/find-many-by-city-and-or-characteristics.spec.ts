@@ -114,4 +114,59 @@ describe('Search Pets By Characteristics Use Case', () => {
             })
         ])
     })
+
+    it('should only show 20 pets per page', async () => {
+        for (let i = 1; i <= 22; i++) {
+            const newPet: Prisma.PetUncheckedCreateInput = {
+                name: `Pet ${i}`,
+                age: 'Adulto',
+                city: 'Cidade 01',
+                state: 'ST',
+                energy_level: 3,
+                independency_level: 'Baixo',
+                size: 'Medio',
+                type: 'Cachorro',
+                about: null,
+                requirements: ['Precisa de um lugar amplo'],
+                organization_id: 'organization-01'
+            }
+
+            await repository.registerPet(newPet);
+        }
+
+        const { pets } = await sut.execute({
+            city: 'Cidade 01',
+            state: 'ST'
+        })
+
+        expect(pets).toHaveLength(20);
+    })
+
+    it('should only change pages', async () => {
+        for (let i = 1; i <= 22; i++) {
+            const newPet: Prisma.PetUncheckedCreateInput = {
+                name: `Pet ${i}`,
+                age: 'Adulto',
+                city: 'Cidade 01',
+                state: 'ST',
+                energy_level: 3,
+                independency_level: 'Baixo',
+                size: 'Medio',
+                type: 'Cachorro',
+                about: null,
+                requirements: ['Precisa de um lugar amplo'],
+                organization_id: 'organization-01'
+            }
+
+            await repository.registerPet(newPet);
+        }
+
+        const { pets } = await sut.execute({
+            city: 'Cidade 01',
+            state: 'ST',
+            page: 2
+        })
+
+        expect(pets).toHaveLength(2);
+    })
 })

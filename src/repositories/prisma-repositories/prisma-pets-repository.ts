@@ -22,7 +22,7 @@ export class PrismaPetsRepository implements PetsRepository {
         return pet;
     }
 
-    async findManyByCityAndOrCharacteristics(city: string, state: string, searchParams: SearchPetsByCharacteristicParams) {
+    async findManyByCityAndOrCharacteristics(city: string, page: number, state: string, searchParams: SearchPetsByCharacteristicParams) {
         const {
             age,
             energy_level,
@@ -39,7 +39,9 @@ export class PrismaPetsRepository implements PetsRepository {
                 independency_level,
                 size,
                 type
-            }
+            },
+            skip: 20 * (page - 1),
+            take: 20 * page
         })
 
         return pets;

@@ -12,5 +12,5 @@ export interface PetsRepository {
     registerPet(data: Prisma.PetUncheckedCreateInput): Promise<Pet>,
 
     findUniqueById(id: string): Promise<Pet | null>,
-    findManyByCityAndOrCharacteristics(city: string, state: string, searchParams: SearchPetsByCharacteristicParams): Promise<Pet[]>
+    findManyByCityAndOrCharacteristics(city: string, page: number, state: string, searchParams: SearchPetsByCharacteristicParams): Promise<Pet[]>
 }

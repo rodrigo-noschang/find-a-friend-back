@@ -12,10 +12,11 @@ export class InMemoryPetsRepository implements PetsRepository {
 
     async findManyByCityAndOrCharacteristics(
         city: string,
+        page: number,
         state: string,
         searchParams: SearchPetsByCharacteristicParams
     ) {
-        const sameCityPets = this.items.filter(pet => {
+        let sameCityPets = this.items.filter(pet => {
             return pet.city === city && pet.state === state;
         })
 
@@ -27,10 +28,12 @@ export class InMemoryPetsRepository implements PetsRepository {
                 sameCityPets
             })
 
-            return filteredPets;
+            sameCityPets = filteredPets;
         }
 
-        return sameCityPets;
+        const paginatedPets = sameCityPets.slice(20 * (page - 1), 20 * page);
+
+        return paginatedPets;
     }
 
     async findUniqueById(id: string) {

@@ -6,7 +6,8 @@ import { Pet } from "@prisma/client";
 
 interface findManyByCityAndOrCharacteristics {
     city: string,
-    state: string
+    state: string,
+    page?: number,
     searchParams?: SearchPetsByCharacteristicParams
 }
 
@@ -19,14 +20,15 @@ export class findManyByCityAndOrCharacteristicsUseCase {
 
     async execute({
         city,
+        page = 1,
         state,
         searchParams = {} as SearchPetsByCharacteristicParams
     }: findManyByCityAndOrCharacteristics): Promise<findManyByCityAndOrCharacteristicsResponse> {
 
-        const pets = await this.repository.findManyByCityAndOrCharacteristics(city, state, searchParams);
+        const pets = await this.repository.findManyByCityAndOrCharacteristics(city, page, state, searchParams);
 
         return {
             pets
-        }
+        };
     }
 }
