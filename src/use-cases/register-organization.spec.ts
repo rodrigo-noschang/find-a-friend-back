@@ -17,7 +17,7 @@ describe('Register Organization Use Case', () => {
         const { organization } = await sut.execute({
             name: 'First Organization',
             email: 'first-org@mail.com',
-            responsible_name: null,
+            responsible_name: 'Responsible',
             zip_code: null,
             whats_app: '44999999999',
             address: 'First Organization Street',
@@ -40,7 +40,7 @@ describe('Register Organization Use Case', () => {
         await sut.execute({
             name: 'First Organization',
             email: 'first-org@mail.com',
-            responsible_name: null,
+            responsible_name: 'Responsible',
             zip_code: null,
             whats_app: '44999999999',
             address: 'First Organization Street',
@@ -53,7 +53,7 @@ describe('Register Organization Use Case', () => {
             return sut.execute({
                 name: 'Second Organization',
                 email: 'second-org@mail.com',
-                responsible_name: null,
+                responsible_name: 'Responsible',
                 zip_code: null,
                 whats_app: '44999999999',
                 address: 'Second Organization Street',
@@ -68,7 +68,7 @@ describe('Register Organization Use Case', () => {
         await sut.execute({
             name: 'First Organization',
             email: 'first-org@mail.com',
-            responsible_name: null,
+            responsible_name: 'Responsible',
             zip_code: null,
             whats_app: '44999999999',
             address: 'First Organization Street',
@@ -81,7 +81,7 @@ describe('Register Organization Use Case', () => {
             return sut.execute({
                 name: 'Second Organization',
                 email: 'second-org@mail.com',
-                responsible_name: null,
+                responsible_name: 'Responsible',
                 zip_code: null,
                 whats_app: '44999999999',
                 address: 'Second Organization Street',

@@ -8,7 +8,7 @@ export async function registerOrganization(request: FastifyRequest, reply: Fasti
     const registerOrganizationBodySchema = z.object({
         name: z.string().max(20),
         email: z.string().email(),
-        responsible_name: z.string().max(20).nullable(),
+        responsible_name: z.string().max(20),
         whats_app: z.string().refine(value => {
             const phoneNumberPattern = /^[0-9]{2}9[0-9]{8}$/;
             return phoneNumberPattern.test(value);

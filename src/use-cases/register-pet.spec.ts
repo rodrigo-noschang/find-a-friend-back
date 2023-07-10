@@ -32,10 +32,8 @@ describe('Register Pet Use Case', () => {
             petData: newPet,
         });
 
-        console.log('Aqui o id -> ', pet);
-
         expect(repository.items).toHaveLength(1);
         expect(pet.id).toEqual(expect.any(String));
-        // expect(pet.organization_id).toEqual(expect.any(String));
+        expect(pet.organization_id).toEqual(expect.any(String));
     })
 })

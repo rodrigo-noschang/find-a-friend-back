@@ -12,10 +12,10 @@ interface RegisterOrganizationUseCaseRequest {
     address: string,
     password: string,
     whats_app: string,
+    responsible_name: string,
 
     email: string,
     zip_code: string | null,
-    responsible_name: string | null,
 }
 
 interface RegisterOrganizationUseCaseResponse {
