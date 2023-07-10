@@ -16,6 +16,7 @@ export async function findManyByCityAndOrCharacteristics(request: FastifyRequest
 
     const { city, state, page, ...searchParams } = findManyQuerySchema.parse(request.query);
 
+
     try {
         const useCase = makeFindManyByCityAndOrCharacteristics();
         const { pets } = await useCase.execute({

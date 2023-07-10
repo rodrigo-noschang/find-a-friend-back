@@ -3,7 +3,7 @@ import request from 'supertest';
 
 import { app } from "@/app";
 
-describe('Authenticate Organization Controller', () => {
+describe('Refresh Organization Token Controller', () => {
     beforeAll(async () => {
         await app.ready()
     })
@@ -12,7 +12,7 @@ describe('Authenticate Organization Controller', () => {
         await app.close()
     })
 
-    it('should be able to register an organization', async () => {
+    it('should be able to get refresh token', async () => {
         await request(app.server)
             .post('/organizations')
             .send({
@@ -27,12 +27,21 @@ describe('Authenticate Organization Controller', () => {
                 password: '123456',
             })
 
-        const response = await request(app.server)
+        const authResponse = await request(app.server)
             .post('/organizations/session')
             .send({
                 email: 'first-org@mail.com',
                 password: '123456'
             })
+
+        const response = await request(app.server)
+            .patch('/organizations/session/refresh')
+            .set('Cookie', authResponse.get('Set-Cookie'))
+            .send();
+
+        expect(response.get('Set-Cookie')).toEqual([
+            expect.stringContaining('refreshToken=')
+        ]);
 
         expect(response.body).toEqual(
             expect.objectContaining({
